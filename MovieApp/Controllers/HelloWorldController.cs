@@ -12,8 +12,7 @@ namespace MovieApp.Controllers
         // GET: /HelloWorld/Welcome/
         public IActionResult Welcome(string name, int ID = 1)
         {
-            ViewData["Message"] = "Welcome " + name;
-            ViewData["ID"] = "Your ID: " + ID;
+            TempData["THIS_IS_DANGEROUS_DATA_TRANSFER"] = "Read the key";
             return View("Welcome");
         }
     }

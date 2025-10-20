@@ -1,16 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MovieApp.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<MovieAppContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("MovieAppContext") 
+?? throw new InvalidOperationException("Connection string 'MovieAppContext' not found.")));
 
-
-// Enforce lowercase routes
-//builder.Services.Configure<RouteOptions>(options =>
-//{
-//    options.LowercaseUrls = true;
-//});
-
-//builder.Services.AddRouting(options =>
-//{
-//    options.LowercaseUrls = true;
-//});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,9 +23,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(
@@ -37,5 +31,7 @@ app.MapControllerRoute(
     pattern: "{controller=Main}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+// Redirect to an page when the response code is 404
+app.UseStatusCodePagesWithReExecute("/Movies");
 
 app.Run();

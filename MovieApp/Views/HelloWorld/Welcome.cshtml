@@ -5,5 +5,8 @@
     ViewData["Title"] = "Welcome";
 }
 
-<h1>@ViewData["Message"]</h1>
-<h3>@ViewData["ID"]</h3>
+<p>TempData</p>
+<ul>
+    <li>Key: THIS_IS_DANGEROUS_DATA_TRANSFER</li>
+    <li>Value: @TempData["THIS_IS_DANGEROUS_DATA_TRANSFER"]</li>
+</ul>
